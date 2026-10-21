@@ -30,6 +30,10 @@ OUTDIR="${3:-}"
 [ -f "$BIN" ] || { echo "error: $BIN not found" >&2; exit 1; }
 command -v dpkg-deb >/dev/null || { echo "error: dpkg-deb not on PATH" >&2; exit 1; }
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+AGENTS_SRC="$REPO_ROOT/termux/AGENTS.md"
+
 ARCH="aarch64"
 PKG="opencode"
 # Force a sane umask — some runners (and Termux locally) default to 077,
@@ -44,6 +48,12 @@ INSTALL_PREFIX="data/data/com.termux/files/usr"
 mkdir -p "$STAGE/$INSTALL_PREFIX/bin"
 cp "$BIN" "$STAGE/$INSTALL_PREFIX/bin/opencode"
 chmod 0755 "$STAGE/$INSTALL_PREFIX/bin/opencode"
+
+mkdir -p "$STAGE/$INSTALL_PREFIX/share/opencode"
+if [ -f "$AGENTS_SRC" ]; then
+  cp "$AGENTS_SRC" "$STAGE/$INSTALL_PREFIX/share/opencode/AGENTS.md"
+  chmod 0644 "$STAGE/$INSTALL_PREFIX/share/opencode/AGENTS.md"
+fi
 
 # Installed-Size is in KiB, rounded up. dpkg uses this only for UX; be
 # approximate but not wildly wrong.
@@ -63,6 +73,21 @@ Description: AI-powered development tool, Termux/Bionic native build
  opencode compiled with a bun-termux runtime so it runs natively on
  Android/Termux (aarch64) without a glibc shim.
 EOF
+
+mkdir -p "$STAGE/DEBIAN"
+cat > "$STAGE/DEBIAN/postinst" <<'EOF'
+#!/data/data/com.termux/files/usr/bin/sh
+set -eu
+SRC="/data/data/com.termux/files/usr/share/opencode/AGENTS.md"
+DST="${HOME:-}/.config/opencode/AGENTS.md"
+if [ -f "$SRC" ] && [ ! -f "$DST" ]; then
+  mkdir -p "$(dirname "$DST")"
+  cp "$SRC" "$DST"
+  chmod 0644 "$DST"
+fi
+exit 0
+EOF
+chmod 0755 "$STAGE/DEBIAN/postinst"
 
 mkdir -p "$OUTDIR"
 DEB="$OUTDIR/${PKG}_${VERSION}_${ARCH}.deb"
