@@ -41,6 +41,11 @@ command -v bun >/dev/null 2>&1 || fail "bun not found. Install bun-termux first.
 
 BUILD_DIR="${BUILD_DIR:-$HOME/.cache/opencode-bionic/build}"
 
+# prepare-build-tree.sh refuses an existing target, so clear it first.
+if [ -d "$BUILD_DIR" ]; then
+  rm -rf "$BUILD_DIR"
+fi
+
 header "Step 1: Prepare build tree (fetch upstream + apply patches)"
 REPO_ROOT="$REPO_ROOT" bash "$SCRIPT_DIR/ci/prepare-build-tree.sh" "$BUILD_DIR"
 
