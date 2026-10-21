@@ -97,7 +97,7 @@ curl -fsSL https://raw.githubusercontent.com/bd-loser/bun-termux/main/scripts/in
 bun --version   # should print 1.4.0 (patched for Android)
 
 # 2. Clone this fork
-git clone https://github.com/bd-loser/opencode-bionic.git ~/opencode-bionic
+git clone https://github.com/emonbudc/opencode-bionic.git ~/opencode-bionic
 cd ~/opencode-bionic
 
 # 3. Bootstrap: prepares a build tree at ~/opencode and runs bun install

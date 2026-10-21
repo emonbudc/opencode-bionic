@@ -99,7 +99,7 @@ jobs:
               ver = os.path.basename(debs[0]).split("_")[1]
               rows.append((ch, ver))
           now = time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime())
-          base_url = "https://bd-loser.github.io/opencode-bionic"
+          base_url = "https://udcemon.me/opencode-bionic"
           setup_base = "https://raw.githubusercontent.com/%s/main/repo-setup.sh" % REPO
           cards = []
           for ch, ver in rows:
