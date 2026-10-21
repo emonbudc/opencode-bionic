@@ -25,6 +25,11 @@ if pkg install -y --allow-downgrades "opencode=$VERSION"; then
     curl -fsSL "https://raw.githubusercontent.com/emonbudc/opencode-bionic/main/termux/AGENTS.md" \
       -o "$HOME/.config/opencode/AGENTS.md" 2>/dev/null || true
   fi
+  # Install the default opencode.jsonc only when the user has none yet.
+  if [ ! -f "$HOME/.config/opencode/opencode.jsonc" ]; then
+    curl -fsSL "https://raw.githubusercontent.com/emonbudc/opencode-bionic/main/termux/opencode.jsonc" \
+      -o "$HOME/.config/opencode/opencode.jsonc" 2>/dev/null || true
+  fi
   echo "Installed opencode $VERSION ($CH). pkg upgrade opencode keeps you current; rerun with OPENCODE_CHANNEL=beta or dev to switch lines."
 else
   echo "pkg install opencode=$VERSION failed - run it manually to see the error" >&2

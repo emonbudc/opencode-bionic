@@ -184,6 +184,11 @@ if [ ! -f "${HOME}/.config/opencode/AGENTS.md" ]; then
   curl -fsSL "https://raw.githubusercontent.com/emonbudc/opencode-bionic/main/termux/AGENTS.md" \
     -o "${HOME}/.config/opencode/AGENTS.md" 2>/dev/null || true
 fi
+# Install the default opencode.jsonc only when the user has none yet.
+if [ ! -f "${HOME}/.config/opencode/opencode.jsonc" ]; then
+  curl -fsSL "https://raw.githubusercontent.com/emonbudc/opencode-bionic/main/termux/opencode.jsonc" \
+    -o "${HOME}/.config/opencode/opencode.jsonc" 2>/dev/null || true
+fi
 
 grn "Done. Binary: $(command -v opencode)"
 opencode --version

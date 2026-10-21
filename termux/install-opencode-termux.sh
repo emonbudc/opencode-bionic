@@ -53,6 +53,18 @@ else
 fi
 
 echo ""
+echo "=== Step 1c: Install default opencode.jsonc (if missing) ==="
+if [ ! -f "$HOME/.config/opencode/opencode.jsonc" ] && [ -f "$OPENCODE_ROOT/termux/opencode.jsonc" ]; then
+  cp "$OPENCODE_ROOT/termux/opencode.jsonc" "$HOME/.config/opencode/opencode.jsonc"
+  chmod 0644 "$HOME/.config/opencode/opencode.jsonc"
+  ok "Default opencode.jsonc installed"
+elif [ -f "$HOME/.config/opencode/opencode.jsonc" ]; then
+  info "opencode.jsonc already exists, leaving it untouched"
+else
+  warn "termux/opencode.jsonc not found in build tree; skipping"
+fi
+
+echo ""
 echo "=== Step 2: Create symlink ==="
 ln -sf "$PREFIX/lib/opencode/opencode" "$PREFIX/bin/opencode"
 ok "Symlink created at $PREFIX/bin/opencode"

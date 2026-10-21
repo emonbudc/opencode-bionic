@@ -92,6 +92,11 @@ if [ ! -f "$HOME/.config/opencode/AGENTS.md" ] && [ -f "$REPO_ROOT/termux/AGENTS
   chmod 0644 "$HOME/.config/opencode/AGENTS.md"
   ok "Default AGENTS.md installed"
 fi
+if [ ! -f "$HOME/.config/opencode/opencode.jsonc" ] && [ -f "$REPO_ROOT/termux/opencode.jsonc" ]; then
+  cp "$REPO_ROOT/termux/opencode.jsonc" "$HOME/.config/opencode/opencode.jsonc"
+  chmod 0644 "$HOME/.config/opencode/opencode.jsonc"
+  ok "Default opencode.jsonc installed"
+fi
 
 header "Setup complete"
 echo ""
