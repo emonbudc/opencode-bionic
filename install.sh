@@ -1,7 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/env bash
 # opencode-bionic installer for Termux (aarch64).
 #
-#   curl -fsSL https://raw.githubusercontent.com/bd-loser/opencode-bionic/main/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/emonbudc/opencode-bionic/main/install.sh | bash
 #
 # Installs the newest STABLE release by default. Stable builds come from an
 # upstream opencode release tag; prereleases mirror upstream's own lines and
@@ -13,7 +13,7 @@
 #                     1.18.15-dev.fe82a1b6 (takes precedence over CHANNEL)
 #   OPENCODE_COMMIT   install the dev build made from this upstream commit;
 #                     any sha prefix of 4+ hex chars
-#   OPENCODE_REPO     github repo (default: bd-loser/opencode-bionic)
+#   OPENCODE_REPO     github repo (default: emonbudc/opencode-bionic)
 #
 # Examples:
 #   curl -fsSL .../install.sh | bash                              # stable
@@ -23,7 +23,7 @@
 
 set -euo pipefail
 
-REPO="${OPENCODE_REPO:-bd-loser/opencode-bionic}"
+REPO="${OPENCODE_REPO:-emonbudc/opencode-bionic}"
 VERSION="${OPENCODE_VERSION:-}"
 CHANNEL="${OPENCODE_CHANNEL:-stable}"
 COMMIT="${OPENCODE_COMMIT:-}"

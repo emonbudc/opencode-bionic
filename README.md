@@ -4,6 +4,9 @@
 > **natively on your Android phone** through Termux. No proot, no chroot, no
 > VM, no root, no glibc. One self-contained binary, a signed apt repository,
 > three channels.
+>
+> This is a fork of the original [bd-loser/opencode-bionic](https://github.com/bd-loser/opencode-bionic)
+> port, published under its own release and apt channels.
 
 <!-- versions:badges -->
 [![opentui-js](https://img.shields.io/badge/opentui--js-@androidtui%400.5.17-green.svg)](https://www.npmjs.com/package/@androidtui/core)
@@ -15,8 +18,8 @@
 Native TUI, rendered on-device — no proot, no VNC, no WebView:
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/bd-loser/opencode-bionic/main/docs/assets/tui-welcome.png" width="49%" alt="opencode welcome page in Termux on Android">
-  <img src="https://raw.githubusercontent.com/bd-loser/opencode-bionic/main/docs/assets/tui-models.png" width="49%" alt="opencode model picker in Termux, including free models">
+  <img src="./docs/assets/tui-welcome.png" width="49%" alt="opencode welcome page in Termux on Android">
+  <img src="./docs/assets/tui-models.png" width="49%" alt="opencode model picker in Termux, including free models">
 </p>
 
 Free models are in the picker too — you can start coding without paying for
@@ -29,19 +32,19 @@ Pick a line, paste one command inside Termux:
 **Stable** *(1.x — default)* — copy, paste, run:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/bd-loser/opencode-bionic/main/repo-setup.sh | bash
+curl -fsSL https://raw.githubusercontent.com/emonbudc/opencode-bionic/main/repo-setup.sh | bash
 ```
 
 **Beta** *(2.x — recommended for v2)*:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/bd-loser/opencode-bionic/main/repo-setup.sh | OPENCODE_CHANNEL=beta bash
+curl -fsSL https://raw.githubusercontent.com/emonbudc/opencode-bionic/main/repo-setup.sh | OPENCODE_CHANNEL=beta bash
 ```
 
 **Dev** *(2.x — bleeding edge)*:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/bd-loser/opencode-bionic/main/repo-setup.sh | OPENCODE_CHANNEL=dev bash
+curl -fsSL https://raw.githubusercontent.com/emonbudc/opencode-bionic/main/repo-setup.sh | OPENCODE_CHANNEL=dev bash
 ```
 
 The script installs the signing key, points apt at this repo, and installs
@@ -49,9 +52,9 @@ opencode. From then on `pkg upgrade opencode` keeps you current. Prefer
 typing the commands yourself?
 
 ```bash
-curl -fsSL https://bd-loser.github.io/opencode-bionic/opencode-bionic.gpg \
+curl -fsSL https://udcemon.me/opencode-bionic/opencode-bionic.gpg \
   -o $PREFIX/etc/apt/trusted.gpg.d/opencode-bionic.gpg
-echo "deb [arch=aarch64] https://bd-loser.github.io/opencode-bionic stable main" \
+echo "deb [arch=aarch64] https://udcemon.me/opencode-bionic stable main" \
   > $PREFIX/etc/apt/sources.list.d/opencode-bionic.list
 pkg update && pkg install opencode
 ```
@@ -70,13 +73,13 @@ version:
 
 | Channel | Tracks | Releases |
 |---|---|---|
-| **stable** *(default)* | upstream release tags | [tags](https://github.com/bd-loser/opencode-bionic/releases) |
-| **beta** | upstream `beta` branch | [prereleases](https://github.com/bd-loser/opencode-bionic/releases?q=prerelease%3Atrue&expanded=true) |
-| **dev** | upstream `dev` branch | [prereleases](https://github.com/bd-loser/opencode-bionic/releases?q=prerelease%3Atrue&expanded=true) |
+| **stable** *(default)* | upstream release tags | [tags](https://github.com/emonbudc/opencode-bionic/releases) |
+| **beta** | upstream `beta` branch | [prereleases](https://github.com/emonbudc/opencode-bionic/releases?q=prerelease%3Atrue&expanded=true) |
+| **dev** | upstream `dev` branch | [prereleases](https://github.com/emonbudc/opencode-bionic/releases?q=prerelease%3Atrue&expanded=true) |
 
 New to opencode, or on 1.x and curious about v2? **v2 ships on the beta and
 dev lines — beta is the recommended start.** Live package index:
-[bd-loser.github.io/opencode-bionic](https://bd-loser.github.io/opencode-bionic/).
+[udcemon.me/opencode-bionic](https://udcemon.me/opencode-bionic/).
 
 ## How it compares
 
@@ -127,14 +130,14 @@ This project assembles the three pieces that make opencode run on Bionic:
 
 This channel's exact build inputs, regenerated automatically on every
 release. Other channels live on their own branch
-([beta](https://github.com/bd-loser/opencode-bionic/tree/beta) /
-[dev](https://github.com/bd-loser/opencode-bionic/tree/dev)), all sourced from
+([beta](https://github.com/emonbudc/opencode-bionic/tree/beta) /
+[dev](https://github.com/emonbudc/opencode-bionic/tree/dev)), all sourced from
 [`versions.json`](./versions.json).
 
 <!-- versions:table -->
 | Component | Version |
 |---|---|
-| opencode (upstream) | `1.19.1` |
+| opencode (upstream) | `1.19.3` |
 | `@opentui/{core,keymap,solid}` (JS, via `@androidtui`) | `0.5.17` |
 | `@androidtui/core-android-arm64` (native `.so`) | `0.5.17` |
 | `bun-termux` runtime | `1.4.3-patched` ([bd-loser/bun-termux](https://github.com/bd-loser/bun-termux)) |
@@ -181,6 +184,7 @@ See <a href="#channels">Channels</a>.
 
 | Repo | Role |
 |---|---|
+| [bd-loser/opencode-bionic](https://github.com/bd-loser/opencode-bionic) | original Termux/Android port this fork is based on |
 | [bd-loser/bun-termux](https://github.com/bd-loser/bun-termux) | Bun runtime patched for Bionic |
 | [bd-loser/opentui](https://github.com/bd-loser/opentui) | opentui android-arm64 rebuild, publishes `@androidtui/*` (fork of [anomalyco/opentui](https://github.com/anomalyco/opentui)) |
 
@@ -189,4 +193,6 @@ and [anomalyco/opentui](https://github.com/anomalyco/opentui).
 
 ## License
 
-MIT — same as upstream opencode. See [LICENSE](./LICENSE).
+MIT — same as upstream opencode. The Termux/Android port was created by
+[bd-loser](https://github.com/bd-loser); this fork keeps the original
+copyright and adds packaging/branding changes. See [LICENSE](./LICENSE).
