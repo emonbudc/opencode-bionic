@@ -9,7 +9,7 @@ pkg install git python build-essential clang make
 curl -fsSL https://raw.githubusercontent.com/bd-loser/bun-termux/main/scripts/install.sh | bash
 
 # 2. Clone + setup (fetches upstream, applies the delta, installs deps)
-git clone https://github.com/bd-loser/opencode-bionic.git ~/opencode-bionic
+git clone https://github.com/emonbudc/opencode-bionic.git ~/opencode-bionic
 cd ~/opencode-bionic
 bash termux/setup.sh
 

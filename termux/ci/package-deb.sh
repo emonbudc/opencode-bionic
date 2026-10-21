@@ -58,7 +58,7 @@ Maintainer: opencode-bionic <noreply@github.com>
 Installed-Size: $SIZE_KB
 Section: devel
 Priority: optional
-Homepage: https://github.com/bd-loser/opencode-bionic
+Homepage: https://github.com/emonbudc/opencode-bionic
 Description: AI-powered development tool, Termux/Bionic native build
  opencode compiled with a bun-termux runtime so it runs natively on
  Android/Termux (aarch64) without a glibc shim.

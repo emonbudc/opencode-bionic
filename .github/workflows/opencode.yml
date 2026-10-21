@@ -41,6 +41,8 @@ on:
         description: "Report the plan, build nothing, commit nothing"
         type: boolean
         default: false
+  schedule:
+    - cron: "17 * * * *"
 
 concurrency:
   group: opencode
