@@ -40,6 +40,19 @@ chmod 755 "$PREFIX/lib/opencode/opencode"
 ok "Binary copied to $PREFIX/lib/opencode/opencode"
 
 echo ""
+echo "=== Step 1b: Install default AGENTS.md (if missing) ==="
+mkdir -p "$HOME/.config/opencode"
+if [ ! -f "$HOME/.config/opencode/AGENTS.md" ] && [ -f "$OPENCODE_ROOT/termux/AGENTS.md" ]; then
+  cp "$OPENCODE_ROOT/termux/AGENTS.md" "$HOME/.config/opencode/AGENTS.md"
+  chmod 0644 "$HOME/.config/opencode/AGENTS.md"
+  ok "Default AGENTS.md installed"
+elif [ -f "$HOME/.config/opencode/AGENTS.md" ]; then
+  info "AGENTS.md already exists, leaving it untouched"
+else
+  warn "termux/AGENTS.md not found in build tree; skipping"
+fi
+
+echo ""
 echo "=== Step 2: Create symlink ==="
 ln -sf "$PREFIX/lib/opencode/opencode" "$PREFIX/bin/opencode"
 ok "Symlink created at $PREFIX/bin/opencode"

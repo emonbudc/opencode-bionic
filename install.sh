@@ -178,5 +178,12 @@ esac
 say "Installing via dpkg"
 dpkg -i "$TMP/$DEB"
 
+# Install the default AGENTS.md only when the user has none yet.
+mkdir -p "${HOME}/.config/opencode"
+if [ ! -f "${HOME}/.config/opencode/AGENTS.md" ]; then
+  curl -fsSL "https://raw.githubusercontent.com/emonbudc/opencode-bionic/main/termux/AGENTS.md" \
+    -o "${HOME}/.config/opencode/AGENTS.md" 2>/dev/null || true
+fi
+
 grn "Done. Binary: $(command -v opencode)"
 opencode --version

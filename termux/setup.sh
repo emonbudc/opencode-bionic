@@ -85,6 +85,14 @@ if [ "${SKIP_SMOKE_TEST:-0}" != "1" ]; then
   fi
 fi
 
+# Install the default AGENTS.md only when the user has none yet.
+mkdir -p "$HOME/.config/opencode"
+if [ ! -f "$HOME/.config/opencode/AGENTS.md" ] && [ -f "$REPO_ROOT/termux/AGENTS.md" ]; then
+  cp "$REPO_ROOT/termux/AGENTS.md" "$HOME/.config/opencode/AGENTS.md"
+  chmod 0644 "$HOME/.config/opencode/AGENTS.md"
+  ok "Default AGENTS.md installed"
+fi
+
 header "Setup complete"
 echo ""
 echo "  build tree:      $OPENCODE_ROOT"
