@@ -54,6 +54,11 @@ if [ -f "$AGENTS_SRC" ]; then
   cp "$AGENTS_SRC" "$STAGE/$INSTALL_PREFIX/share/opencode/AGENTS.md"
   chmod 0644 "$STAGE/$INSTALL_PREFIX/share/opencode/AGENTS.md"
 fi
+CONFIG_SRC="$REPO_ROOT/termux/opencode.jsonc"
+if [ -f "$CONFIG_SRC" ]; then
+  cp "$CONFIG_SRC" "$STAGE/$INSTALL_PREFIX/share/opencode/opencode.jsonc"
+  chmod 0644 "$STAGE/$INSTALL_PREFIX/share/opencode/opencode.jsonc"
+fi
 
 # Installed-Size is in KiB, rounded up. dpkg uses this only for UX; be
 # approximate but not wildly wrong.
@@ -78,12 +83,18 @@ mkdir -p "$STAGE/DEBIAN"
 cat > "$STAGE/DEBIAN/postinst" <<'EOF'
 #!/data/data/com.termux/files/usr/bin/sh
 set -eu
+mkdir -p "${HOME:-}/.config/opencode"
 SRC="/data/data/com.termux/files/usr/share/opencode/AGENTS.md"
 DST="${HOME:-}/.config/opencode/AGENTS.md"
 if [ -f "$SRC" ] && [ ! -f "$DST" ]; then
-  mkdir -p "$(dirname "$DST")"
   cp "$SRC" "$DST"
   chmod 0644 "$DST"
+fi
+SRC2="/data/data/com.termux/files/usr/share/opencode/opencode.jsonc"
+DST2="${HOME:-}/.config/opencode/opencode.jsonc"
+if [ -f "$SRC2" ] && [ ! -f "$DST2" ]; then
+  cp "$SRC2" "$DST2"
+  chmod 0644 "$DST2"
 fi
 exit 0
 EOF
